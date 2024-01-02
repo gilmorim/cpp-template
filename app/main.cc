@@ -87,7 +87,7 @@ int main(int argc, char **argv)
 
     if (verbose)
     {
-        const auto name = parsed_data["name"];
+        const auto& name = parsed_data["name"];
         fmt::print("Name: {}\n", name);
     }
 

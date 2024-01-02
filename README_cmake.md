@@ -30,14 +30,6 @@ cmake -S .. -B . -G "Unix Makefiles" # Option 1
 cmake .. -G "Unix Makefiles" # Option 2
 ```
 
-## Generator for MSVC
-
-```bash
-cd build
-cmake -S .. -B . -G "Visual Studio 16 2019" # Option 1
-cmake .. -G "Visual Studio 16 2019" # Option 2
-```
-
 ## Specify the Build Type
 
 Per default, the standard type is in most cases the debug type.
@@ -112,15 +104,6 @@ Hence, C can use fmt since it is part of the public API of A.
 When B links spdlog as *PRIVATE*, it is saying that B uses spdlog in its
 implementation, but spdlog is not used in any part of B's public API.
 
-### INTERFACE
-
-```cmake
-add_library(D INTERFACE)
-target_include_directories(D INTERFACE {CMAKE_CURRENT_SOURCE_DIR}/include)
-```
-
-In general, used for header-only libraries.
-
 ## Different Library Types
 
 ### Shared
@@ -130,33 +113,3 @@ Shared libraries reduce the amount of code that is duplicated in each program th
 ### Static
 
 Static libraries increase the overall size of the binary, but it means that you don't need to carry along a copy of the library that is being used. As the code is connected at compile time there are not any additional run-time loading costs. The code is simply there.
-
-## Cross Compilation with Toolchain Files
-
-## ARM 32 Cross
-
-```shell
-cmake -B build_arm32 -DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/arm32-cross-toolchain.cmake
-cmake --build build_arm32 -j8
-```
-
-## ARM 32 Native
-
-```shell
-cmake -B build -DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/arm32-native-toolchain.cmake
-cmake --build build -j8
-```
-
-## x86 64 MingW
-
-```shell
-cmake -B build_mingw -DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/x86-64-mingw-toolchain.cmake
-cmake --build build_mingw -j8
-```
-
-## x86 64 Native
-
-```shell
-cmake -B build -DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/x86-64-native-toolchain.cmake
-cmake --build build -j8
-```
