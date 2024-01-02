@@ -151,3 +151,4 @@ ipch/
 
 # Other
 .cache
+.vscode
