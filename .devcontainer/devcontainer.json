@@ -1,17 +1,18 @@
 {
-    "name": "GGM-ARCH",
+    "name": "ubuntu",
     "build": {
         "dockerfile": "Dockerfile",
         "context": ".."
     },
-    "postCreateCommand": "/usr/sbin/zsh .devcontainer/init/init.sh",
-    "remoteUser": "ggm",
+    "remoteUser": "ubuntu",
+    "postCreateCommand": "bash ./init/init.sh",
     "overrideCommand": true,
     "customizations": {
         "vscode": {
             "extensions": [
-                "ms-vscode.cpptools-extension-pack",
-                "llvm-vs-code-extensions.vscode-clangd"
+                "franneck94.c-cpp-runner",
+                "franneck94.vscode-c-cpp-dev-extension-pack",
+                "franneck94.vscode-coding-tools-extension-pack"
             ]
         }
     }

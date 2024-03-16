@@ -53,7 +53,7 @@ function(add_clang_tidy_to_target target)
     endif()
 
     find_program(CLANGTIDY clang-tidy)
-    if(CLANGTIDY)     
+    if(CLANGTIDY)
         message(STATUS "Added Clang Tidy for Target: ${target}")
         add_custom_target(
             ${target}_clangtidy

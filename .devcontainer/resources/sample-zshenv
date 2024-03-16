@@ -1,7 +1,0 @@
-plugins=(
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-    fzf
-)
-
-alias ll="ls -la"

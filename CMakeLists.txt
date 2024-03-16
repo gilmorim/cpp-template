@@ -58,19 +58,58 @@ if(ENABLE_LTO)
 endif()
 
 # EXTERNAL LIBRARIES
-message(STATUS "Using CPM")
-include(CPM)
-cpmaddpackage("gh:fmtlib/fmt#9.1.0")
-cpmaddpackage("gh:nlohmann/json@3.11.2")
-cpmaddpackage("gh:catchorg/Catch2@2.13.9")
-cpmaddpackage("gh:jarro2783/cxxopts@3.1.1")
-cpmaddpackage("gh:gabime/spdlog@1.11.0")
+if(USE_CPM)
+    message(STATUS "Using CPM")
+    include(CPM)
+    cpmaddpackage("gh:fmtlib/fmt#9.1.0")
+    cpmaddpackage("gh:nlohmann/json@3.11.2")
+    cpmaddpackage("gh:catchorg/Catch2@2.13.9")
+    cpmaddpackage("gh:jarro2783/cxxopts@3.1.1")
+    cpmaddpackage("gh:gabime/spdlog@1.11.0")
+else()
+    message(STATUS "Using FetchContent")
+        FetchContent_Declare(
+            nlohmann_json
+            GIT_REPOSITORY https://github.com/nlohmann/json
+            GIT_TAG v3.11.3
+            GIT_SHALLOW TRUE)
+        FetchContent_MakeAvailable(nlohmann_json)
 
+        FetchContent_Declare(
+            fmt
+            GIT_REPOSITORY https://github.com/fmtlib/fmt
+            GIT_TAG 10.0.0
+            GIT_SHALLOW TRUE)
+        FetchContent_MakeAvailable(fmt)
+
+        FetchContent_Declare(
+            spdlog
+            GIT_REPOSITORY https://github.com/gabime/spdlog
+            GIT_TAG v1.13.0
+            GIT_SHALLOW TRUE)
+        FetchContent_MakeAvailable(spdlog)
+
+        FetchContent_Declare(
+            cxxopts
+            GIT_REPOSITORY https://github.com/jarro2783/cxxopts
+            GIT_TAG v3.1.1
+            GIT_SHALLOW TRUE)
+        FetchContent_MakeAvailable(cxxopts)
+
+        if(ENABLE_TESTING)
+            FetchContent_Declare(
+                Catch2
+                GIT_REPOSITORY https://github.com/catchorg/Catch2
+                GIT_TAG v3.5.3
+                GIT_SHALLOW TRUE)
+            FetchContent_MakeAvailable(Catch2)
+            list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
+        endif()
+endif()
 
 # SUB DIRECTORIES
 
 add_subdirectory(configured)
-add_subdirectory(external)
 add_subdirectory(src)
 add_subdirectory(app)
 add_subdirectory(tests)
